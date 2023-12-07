@@ -3,7 +3,7 @@ import numpy as np
 from io import StringIO
 from unittest.mock import patch
 
-from puissance4.puissance4 import create_board, print_board, drop_piece, is_valid_location, winning_move
+from puissance4 import create_board, print_board, drop_piece, is_valid_location, winning_move
 
 
 class TestPuissance4(unittest.TestCase):
