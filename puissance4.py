@@ -67,7 +67,6 @@ def winning_move(board, player):
     return False
 
 def reverse_board(board):
-    print(board)
     cpt_row = 0
     for i in range (len(board[0])):
         tmp_line = []
@@ -76,18 +75,14 @@ def reverse_board(board):
                 tmp_line.append(board[j][i])
         tmp_line = list(reversed(tmp_line))
         if (len(tmp_line) - 1)//2 == 0:
-            print("oui")
             tmp = board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] 
-            print(board[len(board) - (len(tmp_line) - 1)][cpt_row])
             board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] = board[len(board) - (len(tmp_line) - 1)][cpt_row]
             board[len(board) - (len(tmp_line) - 1)][cpt_row] = tmp
             continue
         for i in range ((len(tmp_line))//2):
-            print(board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row], board[len(board) - 1 - i][cpt_row])
             tmp = board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] 
             board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] = board[len(board) - 1 - i][cpt_row]
             board[len(board) - 1 - i][cpt_row] = tmp
-
         cpt_row += 1
     return board
 
