@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 def create_board():
     return np.zeros((6, 7), dtype=int)
@@ -74,6 +75,8 @@ def reverse_board(board):
             if board[j][i] > 0:
                 tmp_line.append(board[j][i])
         tmp_line = list(reversed(tmp_line))
+        if len(tmp_line) == 1:
+            continue
         if (len(tmp_line) - 1)//2 == 0:
             tmp = board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] 
             board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] = board[len(board) - (len(tmp_line) - 1)][cpt_row]
@@ -84,6 +87,48 @@ def reverse_board(board):
             board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] = board[len(board) - 1 - i][cpt_row]
             board[len(board) - 1 - i][cpt_row] = tmp
         cpt_row += 1
+    return board
+
+def reverse_single_col(board, col):
+    cpt_row = 0
+    col = col - 1
+    tmp_line = []
+    for j in range (len(board)):
+        if board[j][col] > 0:
+            tmp_line.append(board[j][col])
+    tmp_line = list(reversed(tmp_line))
+    if len(tmp_line) == 1:
+        return board
+    if (len(tmp_line) - 1)//2 == 0:
+        tmp = board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] 
+        board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] = board[len(board) - (len(tmp_line) - 1)][cpt_row]
+        board[len(board) - (len(tmp_line) - 1)][cpt_row] = tmp
+    for i in range ((len(tmp_line))//2):
+        tmp = board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] 
+        board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] = board[len(board) - 1 - i][cpt_row]
+        board[len(board) - 1 - i][cpt_row] = tmp
+    cpt_row += 1
+    return board
+
+def reverse_random_col(board):
+    cpt_row = 0
+    col = random.randint(0, len(board) - 1)
+    tmp_line = []
+    for j in range (len(board)):
+        if board[j][col] > 0:
+            tmp_line.append(board[j][col])
+    tmp_line = list(reversed(tmp_line))
+    if len(tmp_line) == 1:
+        return board
+    if (len(tmp_line) - 1)//2 == 0:
+        tmp = board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] 
+        board[(len(board) - 1 - (len(tmp_line) - 1))][cpt_row] = board[len(board) - (len(tmp_line) - 1)][cpt_row]
+        board[len(board) - (len(tmp_line) - 1)][cpt_row] = tmp
+    for i in range ((len(tmp_line))//2):
+        tmp = board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] 
+        board[(len(board) - 1 - (len(tmp_line) - 1)) + i][cpt_row] = board[len(board) - 1 - i][cpt_row]
+        board[len(board) - 1 - i][cpt_row] = tmp
+    cpt_row += 1
     return board
 
 def play_game():
@@ -126,6 +171,17 @@ def play_game():
                 board = reverse_board(board)
                 print()
                 print("Plateau inversé !")
+                print()
+            elif move.lower() == 'reverse single':
+                col = int(input("Entrer la colonne à reverse: "))
+                board = reverse_single_col(board, col)
+                print()
+                print("colonne " + str(col) + " inversé !")
+                print()
+            elif move.lower() == 'reverse random':
+                board = reverse_random_col(board)
+                print()
+                print ("colonne random reverse")
                 print()
             else:
                 print()
